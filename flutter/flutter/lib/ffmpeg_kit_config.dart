@@ -40,7 +40,8 @@ import 'statistics_callback.dart';
 class FFmpegKitConfig {
   static FFmpegKitPlatform _platform = FFmpegKitPlatform.instance;
 
-  static LogRedirectionStrategy _globalLogRedirectionStrategy = LogRedirectionStrategy.printLogsWhenNoCallbacksDefined;
+  static LogRedirectionStrategy _globalLogRedirectionStrategy =
+      LogRedirectionStrategy.printLogsWhenNoCallbacksDefined;
 
   static int _activeLogLevel = Level.avLogTrace;
 
@@ -99,7 +100,8 @@ class FFmpegKitConfig {
   ///
   /// Note that you need to use a package with "fontconfig" inside to be able
   /// to use fonts in "FFmpeg".
-  static Future<void> setFontDirectory(String path, [Map<String, String>? mapping = null]) async {
+  static Future<void> setFontDirectory(String path,
+      [Map<String, String>? mapping = null]) async {
     try {
       await init();
       return _platform.ffmpegKitConfigSetFontDirectory(path, mapping);
@@ -114,13 +116,12 @@ class FFmpegKitConfig {
   ///
   /// Note that you need to use a package with "fontconfig" inside to be able
   /// to use fonts in "FFmpeg".
-  static Future<void> setFontDirectoryList(
-    List<String> fontDirectoryList, [
-    Map<String, String>? mapping = null,
-  ]) async {
+  static Future<void> setFontDirectoryList(List<String> fontDirectoryList,
+      [Map<String, String>? mapping = null]) async {
     try {
       await init();
-      return _platform.ffmpegKitConfigSetFontDirectoryList(fontDirectoryList, mapping);
+      return _platform.ffmpegKitConfigSetFontDirectoryList(
+          fontDirectoryList, mapping);
     } on PlatformException catch (e, stack) {
       print("Plugin setFontDirectoryList error: ${e.message}");
       return Future.error("setFontDirectoryList failed.", stack);
@@ -220,7 +221,8 @@ class FFmpegKitConfig {
   static Future<void> ffmpegExecute(FFmpegSession ffmpegSession) async {
     try {
       await init();
-      return _platform.ffmpegKitConfigFFmpegExecute(ffmpegSession.getSessionId());
+      return _platform
+          .ffmpegKitConfigFFmpegExecute(ffmpegSession.getSessionId());
     } on PlatformException catch (e, stack) {
       print("Plugin ffmpegExecute error: ${e.message}");
       return Future.error("ffmpegExecute failed.", stack);
@@ -231,7 +233,8 @@ class FFmpegKitConfig {
   static Future<void> ffprobeExecute(FFprobeSession ffprobeSession) async {
     try {
       await init();
-      return _platform.ffmpegKitConfigFFprobeExecute(ffprobeSession.getSessionId());
+      return _platform
+          .ffmpegKitConfigFFprobeExecute(ffprobeSession.getSessionId());
     } on PlatformException catch (e, stack) {
       print("Plugin ffprobeExecute error: ${e.message}");
       return Future.error("ffprobeExecute failed.", stack);
@@ -240,12 +243,12 @@ class FFmpegKitConfig {
 
   /// Synchronously executes the media information session provided.
   static Future<void> getMediaInformationExecute(
-    MediaInformationSession mediaInformationSession, [
-    int? waitTimeout = null,
-  ]) async {
+      MediaInformationSession mediaInformationSession,
+      [int? waitTimeout = null]) async {
     try {
       await init();
-      return _platform.ffmpegKitConfigGetMediaInformationExecute(mediaInformationSession.getSessionId(), waitTimeout);
+      return _platform.ffmpegKitConfigGetMediaInformationExecute(
+          mediaInformationSession.getSessionId(), waitTimeout);
     } on PlatformException catch (e, stack) {
       print("Plugin getMediaInformationExecute error: ${e.message}");
       return Future.error("getMediaInformationExecute failed.", stack);
@@ -259,7 +262,8 @@ class FFmpegKitConfig {
   static Future<void> asyncFFmpegExecute(FFmpegSession ffmpegSession) async {
     try {
       await init();
-      return _platform.ffmpegKitConfigAsyncFFmpegExecute(ffmpegSession.getSessionId());
+      return _platform
+          .ffmpegKitConfigAsyncFFmpegExecute(ffmpegSession.getSessionId());
     } on PlatformException catch (e, stack) {
       print("Plugin asyncFFmpegExecute error: ${e.message}");
       return Future.error("asyncFFmpegExecute failed.", stack);
@@ -273,7 +277,8 @@ class FFmpegKitConfig {
   static Future<void> asyncFFprobeExecute(FFprobeSession ffprobeSession) async {
     try {
       await init();
-      return _platform.ffmpegKitConfigAsyncFFprobeExecute(ffprobeSession.getSessionId());
+      return _platform
+          .ffmpegKitConfigAsyncFFprobeExecute(ffprobeSession.getSessionId());
     } on PlatformException catch (e, stack) {
       print("Plugin asyncFFprobeExecute error: ${e.message}");
       return Future.error("asyncFFprobeExecute failed.", stack);
@@ -285,15 +290,12 @@ class FFmpegKitConfig {
   /// Note that this method returns immediately and does not wait the execution to complete. You must use an
   /// [MediaInformationSessionCompleteCallback] if you want to be notified about the result.
   static Future<void> asyncGetMediaInformationExecute(
-    MediaInformationSession mediaInformationSession, [
-    int? waitTimeout = null,
-  ]) async {
+      MediaInformationSession mediaInformationSession,
+      [int? waitTimeout = null]) async {
     try {
       await init();
       return _platform.ffmpegKitConfigAsyncGetMediaInformationExecute(
-        mediaInformationSession.getSessionId(),
-        waitTimeout,
-      );
+          mediaInformationSession.getSessionId(), waitTimeout);
     } on PlatformException catch (e, stack) {
       print("Plugin asyncGetMediaInformationExecute error: ${e.message}");
       return Future.error("asyncGetMediaInformationExecute failed.", stack);
@@ -306,16 +308,17 @@ class FFmpegKitConfig {
   }
 
   /// Sets a global callback to redirect FFmpeg statistics.
-  static void enableStatisticsCallback([StatisticsCallback? statisticsCallback = null]) {
+  static void enableStatisticsCallback(
+      [StatisticsCallback? statisticsCallback = null]) {
     FFmpegKitFactory.setGlobalStatisticsCallback(statisticsCallback);
   }
 
   /// Sets a global FFmpegSessionCompleteCallback to receive execution results
   /// for FFmpeg sessions.
-  static void enableFFmpegSessionCompleteCallback([
-    FFmpegSessionCompleteCallback? ffmpegSessionCompleteCallback = null,
-  ]) {
-    FFmpegKitFactory.setGlobalFFmpegSessionCompleteCallback(ffmpegSessionCompleteCallback);
+  static void enableFFmpegSessionCompleteCallback(
+      [FFmpegSessionCompleteCallback? ffmpegSessionCompleteCallback = null]) {
+    FFmpegKitFactory.setGlobalFFmpegSessionCompleteCallback(
+        ffmpegSessionCompleteCallback);
   }
 
   /// Returns the global FFmpegSessionCompleteCallback set.
@@ -324,10 +327,10 @@ class FFmpegKitConfig {
 
   /// Sets a global FFprobeSessionCompleteCallback to receive execution results
   /// for FFprobe sessions.
-  static void enableFFprobeSessionCompleteCallback([
-    FFprobeSessionCompleteCallback? ffprobeSessionCompleteCallback = null,
-  ]) {
-    FFmpegKitFactory.setGlobalFFprobeSessionCompleteCallback(ffprobeSessionCompleteCallback);
+  static void enableFFprobeSessionCompleteCallback(
+      [FFprobeSessionCompleteCallback? ffprobeSessionCompleteCallback = null]) {
+    FFmpegKitFactory.setGlobalFFprobeSessionCompleteCallback(
+        ffprobeSessionCompleteCallback);
   }
 
   /// Returns the global FFprobeSessionCompleteCallback set.
@@ -336,15 +339,17 @@ class FFmpegKitConfig {
 
   /// Sets a global MediaInformationSessionCompleteCallback to receive
   /// execution results for MediaInformation sessions.
-  static void enableMediaInformationSessionCompleteCallback([
-    MediaInformationSessionCompleteCallback? mediaInformationSessionCompleteCallback = null,
-  ]) {
-    FFmpegKitFactory.setGlobalMediaInformationSessionCompleteCallback(mediaInformationSessionCompleteCallback);
+  static void enableMediaInformationSessionCompleteCallback(
+      [MediaInformationSessionCompleteCallback?
+          mediaInformationSessionCompleteCallback = null]) {
+    FFmpegKitFactory.setGlobalMediaInformationSessionCompleteCallback(
+        mediaInformationSessionCompleteCallback);
   }
 
   /// Returns the global MediaInformationSessionCompleteCallback set.
-  static MediaInformationSessionCompleteCallback? getMediaInformationSessionCompleteCallback() =>
-      FFmpegKitFactory.getGlobalMediaInformationSessionCompleteCallback();
+  static MediaInformationSessionCompleteCallback?
+      getMediaInformationSessionCompleteCallback() =>
+          FFmpegKitFactory.getGlobalMediaInformationSessionCompleteCallback();
 
   /// Returns the current log level.
   static int getLogLevel() => _activeLogLevel;
@@ -399,7 +404,8 @@ class FFmpegKitConfig {
   /// Note that this method is Android only. It will fail if called on other
   /// platforms. It also requires API Level &ge; 19. On older API levels it
   /// returns an empty url.
-  static Future<String?> getSafParameter(String uriString, String openMode) async {
+  static Future<String?> getSafParameter(
+      String uriString, String openMode) async {
     try {
       await init();
       return _platform.ffmpegKitConfigGetSafParameter(uriString, openMode);
@@ -435,7 +441,9 @@ class FFmpegKitConfig {
   static Future<Session?> getSession(int sessionId) async {
     try {
       await init();
-      return _platform.ffmpegKitConfigGetSession(sessionId).then(FFmpegKitFactory.mapToNullableSession);
+      return _platform
+          .ffmpegKitConfigGetSession(sessionId)
+          .then(FFmpegKitFactory.mapToNullableSession);
     } on PlatformException catch (e, stack) {
       print("Plugin getSession error: ${e.message}");
       return Future.error("getSession failed.", stack);
@@ -446,7 +454,9 @@ class FFmpegKitConfig {
   static Future<Session?> getLastSession() async {
     try {
       await init();
-      return _platform.ffmpegKitConfigGetLastSession().then(FFmpegKitFactory.mapToNullableSession);
+      return _platform
+          .ffmpegKitConfigGetLastSession()
+          .then(FFmpegKitFactory.mapToNullableSession);
     } on PlatformException catch (e, stack) {
       print("Plugin getLastSession error: ${e.message}");
       return Future.error("getLastSession failed.", stack);
@@ -457,7 +467,9 @@ class FFmpegKitConfig {
   static Future<Session?> getLastCompletedSession() async {
     try {
       await init();
-      return _platform.ffmpegKitConfigGetLastCompletedSession().then(FFmpegKitFactory.mapToNullableSession);
+      return _platform
+          .ffmpegKitConfigGetLastCompletedSession()
+          .then(FFmpegKitFactory.mapToNullableSession);
     } on PlatformException catch (e, stack) {
       print("Plugin getLastCompletedSession error: ${e.message}");
       return Future.error("getLastCompletedSession failed.", stack);
@@ -473,7 +485,8 @@ class FFmpegKitConfig {
           return List.empty();
         } else {
           return sessions
-              .map((dynamic sessionObject) => FFmpegKitFactory.mapToSession(sessionObject as Map<dynamic, dynamic>))
+              .map((dynamic sessionObject) => FFmpegKitFactory.mapToSession(
+                  sessionObject as Map<dynamic, dynamic>))
               .toList();
         }
       });
@@ -504,7 +517,8 @@ class FFmpegKitConfig {
           return List.empty();
         } else {
           return sessions
-              .map((dynamic sessionObject) => FFmpegKitFactory.mapToSession(sessionObject as Map<dynamic, dynamic>))
+              .map((dynamic sessionObject) => FFmpegKitFactory.mapToSession(
+                  sessionObject as Map<dynamic, dynamic>))
               .map((session) => session as FFmpegSession)
               .toList();
         }
@@ -524,7 +538,8 @@ class FFmpegKitConfig {
           return List.empty();
         } else {
           return sessions
-              .map((dynamic sessionObject) => FFmpegKitFactory.mapToSession(sessionObject as Map<dynamic, dynamic>))
+              .map((dynamic sessionObject) => FFmpegKitFactory.mapToSession(
+                  sessionObject as Map<dynamic, dynamic>))
               .map((session) => session as FFprobeSession)
               .toList();
         }
@@ -536,15 +551,19 @@ class FFmpegKitConfig {
   }
 
   /// Returns all MediaInformation sessions in the session history.
-  static Future<List<MediaInformationSession>> getMediaInformationSessions() async {
+  static Future<List<MediaInformationSession>>
+      getMediaInformationSessions() async {
     try {
       await FFmpegKitConfig.init();
-      return _platform.ffprobeKitListMediaInformationSessions().then((sessions) {
+      return _platform
+          .ffprobeKitListMediaInformationSessions()
+          .then((sessions) {
         if (sessions == null) {
           return List.empty();
         } else {
           return sessions
-              .map((dynamic sessionObject) => FFmpegKitFactory.mapToSession(sessionObject as Map<dynamic, dynamic>))
+              .map((dynamic sessionObject) => FFmpegKitFactory.mapToSession(
+                  sessionObject as Map<dynamic, dynamic>))
               .map((session) => session as MediaInformationSession)
               .toList();
         }
@@ -556,15 +575,19 @@ class FFmpegKitConfig {
   }
 
   /// Returns sessions that have [sessionState].
-  static Future<List<Session>> getSessionsByState(SessionState sessionState) async {
+  static Future<List<Session>> getSessionsByState(
+      SessionState sessionState) async {
     try {
       await init();
-      return _platform.ffmpegKitConfigGetSessionsByState(sessionState.index).then((sessions) {
+      return _platform
+          .ffmpegKitConfigGetSessionsByState(sessionState.index)
+          .then((sessions) {
         if (sessions == null) {
           return List.empty();
         } else {
           return sessions
-              .map((dynamic sessionObject) => FFmpegKitFactory.mapToSession(sessionObject as Map<dynamic, dynamic>))
+              .map((dynamic sessionObject) => FFmpegKitFactory.mapToSession(
+                  sessionObject as Map<dynamic, dynamic>))
               .toList();
         }
       });
@@ -575,10 +598,12 @@ class FFmpegKitConfig {
   }
 
   /// Returns the active log redirection strategy.
-  static LogRedirectionStrategy getLogRedirectionStrategy() => _globalLogRedirectionStrategy;
+  static LogRedirectionStrategy getLogRedirectionStrategy() =>
+      _globalLogRedirectionStrategy;
 
   /// Sets the log redirection strategy.
-  static void setLogRedirectionStrategy(LogRedirectionStrategy logRedirectionStrategy) {
+  static void setLogRedirectionStrategy(
+      LogRedirectionStrategy logRedirectionStrategy) {
     _globalLogRedirectionStrategy = logRedirectionStrategy;
   }
 
@@ -605,6 +630,8 @@ class FFmpegKitConfig {
         return "FAILED";
       case SessionState.completed:
         return "COMPLETED";
+      default:
+        return "";
     }
   }
 
@@ -633,7 +660,8 @@ class FFmpegKitConfig {
           argumentList.add(currentArgument.toString());
           currentArgument = new StringBuffer();
         }
-      } else if (currentChar == '\''.codeUnitAt(0) && (previousChar == null || previousChar != '\\'.codeUnitAt(0))) {
+      } else if (currentChar == '\''.codeUnitAt(0) &&
+          (previousChar == null || previousChar != '\\'.codeUnitAt(0))) {
         if (singleQuoteStarted) {
           singleQuoteStarted = false;
         } else if (doubleQuoteStarted) {
@@ -641,7 +669,8 @@ class FFmpegKitConfig {
         } else {
           singleQuoteStarted = true;
         }
-      } else if (currentChar == '\"'.codeUnitAt(0) && (previousChar == null || previousChar != '\\'.codeUnitAt(0))) {
+      } else if (currentChar == '\"'.codeUnitAt(0) &&
+          (previousChar == null || previousChar != '\\'.codeUnitAt(0))) {
         if (doubleQuoteStarted) {
           doubleQuoteStarted = false;
         } else if (singleQuoteStarted) {
@@ -753,7 +782,8 @@ class FFmpegKitConfig {
   ///
   /// Note that this method is Android only. It will fail if called on other
   /// platforms.
-  static Future<String?> selectDocumentForRead([String? type = null, List<String>? extraTypes = null]) async {
+  static Future<String?> selectDocumentForRead(
+      [String? type = null, List<String>? extraTypes = null]) async {
     try {
       await init();
       return _platform.ffmpegKitConfigSelectDocumentForRead(type, extraTypes);
@@ -769,14 +799,14 @@ class FFmpegKitConfig {
   ///
   /// Note that this method is Android only. It will fail if called on other
   /// platforms.
-  static Future<String?> selectDocumentForWrite([
-    String? title = null,
-    String? type = null,
-    List<String>? extraTypes = null,
-  ]) async {
+  static Future<String?> selectDocumentForWrite(
+      [String? title = null,
+      String? type = null,
+      List<String>? extraTypes = null]) async {
     try {
       await init();
-      return _platform.ffmpegKitConfigSelectDocumentForWrite(title, type, extraTypes);
+      return _platform.ffmpegKitConfigSelectDocumentForWrite(
+          title, type, extraTypes);
     } on PlatformException catch (e, stack) {
       print("Plugin selectDocumentForWrite error: ${e.message}");
       return Future.error("selectDocumentForWrite failed.", stack);

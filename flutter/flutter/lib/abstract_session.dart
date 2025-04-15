@@ -63,24 +63,27 @@ abstract class AbstractSession extends Session {
   /// [logRedirectionStrategy].
   ///
   /// Returns FFmpeg session created.
-  static Future<FFmpegSession> createFFmpegSession(
-    List<String> argumentsArray, [
-    LogRedirectionStrategy? logRedirectionStrategy,
-  ]) async {
+  static Future<FFmpegSession> createFFmpegSession(List<String> argumentsArray,
+      [LogRedirectionStrategy? logRedirectionStrategy]) async {
     try {
       await FFmpegKitConfig.init();
-      final Map<dynamic, dynamic>? nativeSession = await _platform.abstractSessionCreateFFmpegSession(argumentsArray);
+      final Map<dynamic, dynamic>? nativeSession =
+          await _platform.abstractSessionCreateFFmpegSession(argumentsArray);
 
       final session = new FFmpegSession();
 
       session._sessionId = nativeSession?["sessionId"];
-      session._createTime = FFmpegKitFactory.validDate(nativeSession?["createTime"]);
-      session._startTime = FFmpegKitFactory.validDate(nativeSession?["startTime"]);
+      session._createTime =
+          FFmpegKitFactory.validDate(nativeSession?["createTime"]);
+      session._startTime =
+          FFmpegKitFactory.validDate(nativeSession?["startTime"]);
       session._command = nativeSession?["command"];
       session._argumentsArray = argumentsArray;
-      session._logRedirectionStrategy = logRedirectionStrategy ?? FFmpegKitConfig.getLogRedirectionStrategy();
+      session._logRedirectionStrategy =
+          logRedirectionStrategy ?? FFmpegKitConfig.getLogRedirectionStrategy();
 
-      FFmpegKitFactory.setLogRedirectionStrategy(session._sessionId, logRedirectionStrategy);
+      FFmpegKitFactory.setLogRedirectionStrategy(
+          session._sessionId, logRedirectionStrategy);
 
       return session;
     } on PlatformException catch (e, stack) {
@@ -93,15 +96,18 @@ abstract class AbstractSession extends Session {
   /// fields as map keys.
   ///
   /// Returns FFmpeg session created.
-  static FFmpegSession createFFmpegSessionFromMap(Map<dynamic, dynamic> sessionMap) {
+  static FFmpegSession createFFmpegSessionFromMap(
+      Map<dynamic, dynamic> sessionMap) {
     final session = new FFmpegSession();
 
     session._sessionId = sessionMap["sessionId"];
     session._createTime = FFmpegKitFactory.validDate(sessionMap["createTime"]);
     session._startTime = FFmpegKitFactory.validDate(sessionMap["startTime"]);
     session._command = sessionMap["command"];
-    session._argumentsArray = FFmpegKitConfig.parseArguments(sessionMap["command"]);
-    session._logRedirectionStrategy = FFmpegKitFactory.getLogRedirectionStrategy(session._sessionId);
+    session._argumentsArray =
+        FFmpegKitConfig.parseArguments(sessionMap["command"]);
+    session._logRedirectionStrategy =
+        FFmpegKitFactory.getLogRedirectionStrategy(session._sessionId);
 
     return session;
   }
@@ -111,23 +117,27 @@ abstract class AbstractSession extends Session {
   ///
   /// Returns FFprobe session created.
   static Future<FFprobeSession> createFFprobeSession(
-    List<String> argumentsArray, [
-    LogRedirectionStrategy? logRedirectionStrategy,
-  ]) async {
+      List<String> argumentsArray,
+      [LogRedirectionStrategy? logRedirectionStrategy]) async {
     try {
       await FFmpegKitConfig.init();
-      final Map<dynamic, dynamic>? nativeSession = await _platform.abstractSessionCreateFFprobeSession(argumentsArray);
+      final Map<dynamic, dynamic>? nativeSession =
+          await _platform.abstractSessionCreateFFprobeSession(argumentsArray);
 
       final session = new FFprobeSession();
 
       session._sessionId = nativeSession?["sessionId"];
-      session._createTime = FFmpegKitFactory.validDate(nativeSession?["createTime"]);
-      session._startTime = FFmpegKitFactory.validDate(nativeSession?["startTime"]);
+      session._createTime =
+          FFmpegKitFactory.validDate(nativeSession?["createTime"]);
+      session._startTime =
+          FFmpegKitFactory.validDate(nativeSession?["startTime"]);
       session._command = nativeSession?["command"];
       session._argumentsArray = argumentsArray;
-      session._logRedirectionStrategy = logRedirectionStrategy ?? FFmpegKitConfig.getLogRedirectionStrategy();
+      session._logRedirectionStrategy =
+          logRedirectionStrategy ?? FFmpegKitConfig.getLogRedirectionStrategy();
 
-      FFmpegKitFactory.setLogRedirectionStrategy(session._sessionId, logRedirectionStrategy);
+      FFmpegKitFactory.setLogRedirectionStrategy(
+          session._sessionId, logRedirectionStrategy);
 
       return session;
     } on PlatformException catch (e, stack) {
@@ -140,15 +150,18 @@ abstract class AbstractSession extends Session {
   /// fields as map keys.
   ///
   /// Returns FFprobe session created.
-  static FFprobeSession createFFprobeSessionFromMap(Map<dynamic, dynamic> sessionMap) {
+  static FFprobeSession createFFprobeSessionFromMap(
+      Map<dynamic, dynamic> sessionMap) {
     final session = new FFprobeSession();
 
     session._sessionId = sessionMap["sessionId"];
     session._createTime = FFmpegKitFactory.validDate(sessionMap["createTime"]);
     session._startTime = FFmpegKitFactory.validDate(sessionMap["startTime"]);
     session._command = sessionMap["command"];
-    session._argumentsArray = FFmpegKitConfig.parseArguments(sessionMap["command"]);
-    session._logRedirectionStrategy = FFmpegKitFactory.getLogRedirectionStrategy(session._sessionId);
+    session._argumentsArray =
+        FFmpegKitConfig.parseArguments(sessionMap["command"]);
+    session._logRedirectionStrategy =
+        FFmpegKitFactory.getLogRedirectionStrategy(session._sessionId);
 
     return session;
   }
@@ -156,22 +169,25 @@ abstract class AbstractSession extends Session {
   /// Creates a new MediaInformation session using [argumentsArray].
   ///
   /// Returns MediaInformation session created.
-  static Future<MediaInformationSession> createMediaInformationSession(List<String> argumentsArray) async {
+  static Future<MediaInformationSession> createMediaInformationSession(
+      List<String> argumentsArray) async {
     try {
       await FFmpegKitConfig.init();
-      final Map<dynamic, dynamic>? nativeSession = await _platform.abstractSessionCreateMediaInformationSession(
-        argumentsArray,
-      );
+      final Map<dynamic, dynamic>? nativeSession = await _platform
+          .abstractSessionCreateMediaInformationSession(argumentsArray);
       final session = new MediaInformationSession();
 
       session._sessionId = nativeSession?["sessionId"];
-      session._createTime = FFmpegKitFactory.validDate(nativeSession?["createTime"]);
-      session._startTime = FFmpegKitFactory.validDate(nativeSession?["startTime"]);
+      session._createTime =
+          FFmpegKitFactory.validDate(nativeSession?["createTime"]);
+      session._startTime =
+          FFmpegKitFactory.validDate(nativeSession?["startTime"]);
       session._command = nativeSession?["command"];
       session._argumentsArray = argumentsArray;
       session._logRedirectionStrategy = LogRedirectionStrategy.neverPrintLogs;
 
-      FFmpegKitFactory.setLogRedirectionStrategy(session._sessionId, LogRedirectionStrategy.neverPrintLogs);
+      FFmpegKitFactory.setLogRedirectionStrategy(
+          session._sessionId, LogRedirectionStrategy.neverPrintLogs);
 
       return session;
     } on PlatformException catch (e, stack) {
@@ -184,25 +200,29 @@ abstract class AbstractSession extends Session {
   /// session fields as map keys.
   ///
   /// Returns MediaInformation session created.
-  static MediaInformationSession createMediaInformationSessionFromMap(Map<dynamic, dynamic> sessionMap) {
+  static MediaInformationSession createMediaInformationSessionFromMap(
+      Map<dynamic, dynamic> sessionMap) {
     final session = new MediaInformationSession();
 
     session._sessionId = sessionMap["sessionId"];
     session._createTime = FFmpegKitFactory.validDate(sessionMap["createTime"]);
     session._startTime = FFmpegKitFactory.validDate(sessionMap["startTime"]);
     session._command = sessionMap["command"];
-    session._argumentsArray = FFmpegKitConfig.parseArguments(sessionMap["command"]);
+    session._argumentsArray =
+        FFmpegKitConfig.parseArguments(sessionMap["command"]);
     session._logRedirectionStrategy = LogRedirectionStrategy.neverPrintLogs;
 
     if (sessionMap.containsKey("mediaInformation")) {
-      session.setMediaInformation(new MediaInformation(sessionMap["mediaInformation"]));
+      session.setMediaInformation(
+          new MediaInformation(sessionMap["mediaInformation"]));
     }
 
     return session;
   }
 
   /// Returns the session specific log callback.
-  LogCallback? getLogCallback() => FFmpegKitFactory.getLogCallback(this.getSessionId());
+  LogCallback? getLogCallback() =>
+      FFmpegKitFactory.getLogCallback(this.getSessionId());
 
   /// Returns the session identifier.
   int? getSessionId() => this._sessionId;
@@ -216,7 +236,9 @@ abstract class AbstractSession extends Session {
   /// Returns session end time.
   Future<DateTime?> getEndTime() async {
     try {
-      return _platform.abstractSessionGetEndTime(this.getSessionId()).then(FFmpegKitFactory.validDate);
+      return _platform
+          .abstractSessionGetEndTime(this.getSessionId())
+          .then(FFmpegKitFactory.validDate);
     } on PlatformException catch (e, stack) {
       print("Plugin getEndTime error: ${e.message}");
       return Future.error("getEndTime failed.", stack);
@@ -227,7 +249,9 @@ abstract class AbstractSession extends Session {
   /// if the session is not over yet.
   Future<int> getDuration() async {
     try {
-      return _platform.abstractSessionGetDuration(this.getSessionId()).then((duration) => duration ?? 0);
+      return _platform
+          .abstractSessionGetDuration(this.getSessionId())
+          .then((duration) => duration ?? 0);
     } on PlatformException catch (e, stack) {
       print("Plugin getDuration error: ${e.message}");
       return Future.error("getDuration failed.", stack);
@@ -245,12 +269,15 @@ abstract class AbstractSession extends Session {
   /// them until [waitTimeout].
   Future<List<Log>> getAllLogs([int? waitTimeout = null]) async {
     try {
-      return _platform.abstractSessionGetAllLogs(this.getSessionId(), waitTimeout).then((allLogs) {
+      return _platform
+          .abstractSessionGetAllLogs(this.getSessionId(), waitTimeout)
+          .then((allLogs) {
         if (allLogs == null) {
           return List.empty();
         } else {
           return allLogs
-              .map((dynamic logObject) => FFmpegKitFactory.mapToLog(logObject as Map<dynamic, dynamic>))
+              .map((dynamic logObject) =>
+                  FFmpegKitFactory.mapToLog(logObject as Map<dynamic, dynamic>))
               .toList();
         }
       });
@@ -265,12 +292,15 @@ abstract class AbstractSession extends Session {
   /// will not wait for them and will return immediately.
   Future<List<Log>> getLogs() async {
     try {
-      return _platform.abstractSessionGetLogs(this.getSessionId()).then((allLogs) {
+      return _platform
+          .abstractSessionGetLogs(this.getSessionId())
+          .then((allLogs) {
         if (allLogs == null) {
           return List.empty();
         } else {
           return allLogs
-              .map((dynamic logObject) => FFmpegKitFactory.mapToLog(logObject as Map<dynamic, dynamic>))
+              .map((dynamic logObject) =>
+                  FFmpegKitFactory.mapToLog(logObject as Map<dynamic, dynamic>))
               .toList();
         }
       });
@@ -285,7 +315,8 @@ abstract class AbstractSession extends Session {
   /// this method waits for them until [waitTimeout].
   Future<String?> getAllLogsAsString([int? waitTimeout = null]) async {
     try {
-      return _platform.abstractSessionGetAllLogsAsString(this.getSessionId(), waitTimeout);
+      return _platform.abstractSessionGetAllLogsAsString(
+          this.getSessionId(), waitTimeout);
     } on PlatformException catch (e, stack) {
       print("Plugin getAllLogsAsString error: ${e.message}");
       return Future.error("getAllLogsAsString failed.", stack);
@@ -314,7 +345,9 @@ abstract class AbstractSession extends Session {
   /// Returns the state of the session.
   Future<SessionState> getState() async {
     try {
-      return _platform.abstractSessionGetState(this.getSessionId()).then((state) {
+      return _platform
+          .abstractSessionGetState(this.getSessionId())
+          .then((state) {
         switch (state) {
           case 0:
             return SessionState.created;
@@ -338,7 +371,9 @@ abstract class AbstractSession extends Session {
   /// started, still running or failed then this method returns null.
   Future<ReturnCode?> getReturnCode() async {
     try {
-      return _platform.abstractSessionGetReturnCode(this.getSessionId()).then((returnCode) {
+      return _platform
+          .abstractSessionGetReturnCode(this.getSessionId())
+          .then((returnCode) {
         if (returnCode == null) {
           return null;
         } else {
@@ -366,16 +401,20 @@ abstract class AbstractSession extends Session {
   }
 
   /// Returns session specific log redirection strategy.
-  LogRedirectionStrategy? getLogRedirectionStrategy() => this._logRedirectionStrategy;
+  LogRedirectionStrategy? getLogRedirectionStrategy() =>
+      this._logRedirectionStrategy;
 
   /// Returns whether there are still asynchronous messages being transmitted
   /// for this session or not.
   Future<bool> thereAreAsynchronousMessagesInTransmit() async {
     try {
-      return _platform.abstractSessionThereAreAsynchronousMessagesInTransmit(this.getSessionId());
+      return _platform.abstractSessionThereAreAsynchronousMessagesInTransmit(
+          this.getSessionId());
     } on PlatformException catch (e, stack) {
-      print("Plugin thereAreAsynchronousMessagesInTransmit error: ${e.message}");
-      return Future.error("thereAreAsynchronousMessagesInTransmit failed.", stack);
+      print(
+          "Plugin thereAreAsynchronousMessagesInTransmit error: ${e.message}");
+      return Future.error(
+          "thereAreAsynchronousMessagesInTransmit failed.", stack);
     }
   }
 

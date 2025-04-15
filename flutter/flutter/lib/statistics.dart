@@ -28,16 +28,8 @@ class Statistics {
   double _bitrate;
   double _speed;
 
-  Statistics(
-    this._sessionId,
-    this._videoFrameNumber,
-    this._videoFps,
-    this._videoQuality,
-    this._size,
-    this._time,
-    this._bitrate,
-    this._speed,
-  );
+  Statistics(this._sessionId, this._videoFrameNumber, this._videoFps,
+      this._videoQuality, this._size, this._time, this._bitrate, this._speed);
 
   int getSessionId() => this._sessionId;
 

@@ -1,41 +1,36 @@
-group = "com.arthenica.ffmpegkit.flutter"
-version = "1.0-SNAPSHOT"
-
 buildscript {
-    ext.kotlin_version = "2.1.10"
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath("com.android.tools.build:gradle:8.7.0")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
+        classpath 'com.android.tools.build:gradle:8.1.0'
     }
 }
 
-allprojects {
+rootProject.allprojects {
     repositories {
         google()
         mavenCentral()
     }
 }
 
-apply plugin: "com.android.library"
-apply plugin: "kotlin-android"
+apply plugin: 'com.android.library'
 
 android {
-    namespace = "com.arthenica.ffmpegkit.flutter"
-
-    compileSdk = 35
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+    // Conditional for compatibility with AGP <4.2.
+    if (project.android.hasProperty("namespace")) {
+        namespace 'com.arthenica.ffmpegkit.flutter'
     }
 
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17
+    compileSdkVersion 33
+
+    defaultConfig {
+        minSdkVersion 24
+        targetSdkVersion 33
+        versionCode 603
+        versionName "6.0.3"
     }
 
     buildTypes {
@@ -43,19 +38,30 @@ android {
             minifyEnabled false
         }
     }
-
-    sourceSets {
-        main.java.srcDirs += "src/main/kotlin"
+    lintOptions {
+        disable 'GradleCompatible'
     }
-
-    defaultConfig {
-        minSdk = 24
-        versionCode 603
-        versionName "6.0.3"
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
+}
 
-    dependencies {
-        implementation("androidx.annotation:annotation:1.9.1")
-        implementation("com.arthenica:ffmpeg-kit-https:6.0-2.LTS")
-    }
+dependencies {
+    implementation 'androidx.annotation:annotation:1.5.0'
+
+//start:ffmpeg-kit-https
+//    implementation 'com.arthenica:ffmpeg-kit-https:6.0-2'
+//    FmpegKit has been officially retired.Place dependent libraries locally
+//    The Maven configuration is immutable and currently not required; it’s retained solely as a precaution.
+    implementation files('./libs/ffmpeg-kit-https-6.0-2.aar')
+
+//start:    smart-exception-java
+    implementation files('./libs/smart-exception-java-0.2.1.jar')
+    implementation files('./libs/smart-exception-common-0.2.1.jar')
+//    or
+//    implementation 'com.arthenica:smart-exception-java:0.2.1'
+//end:    smart-exception-java
+
+//end:ffmpeg-kit-https
 }

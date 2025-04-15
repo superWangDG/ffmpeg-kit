@@ -41,7 +41,8 @@ import 'ffmpeg_kit_factory.dart';
 
 class FFmpegKitInitializer {
   static FFmpegKitPlatform _platform = FFmpegKitPlatform.instance;
-  static const EventChannel _eventChannel = const EventChannel('flutter.arthenica.com/ffmpeg_kit_event');
+  static const EventChannel _eventChannel =
+      const EventChannel('flutter.arthenica.com/ffmpeg_kit_event');
 
   static FFmpegKitInitializer _instance = new FFmpegKitInitializer();
 
@@ -58,9 +59,12 @@ class FFmpegKitInitializer {
   void _onEvent(dynamic event) {
     if (event is Map<dynamic, dynamic>) {
       final Map<String, dynamic> eventMap = event.cast<String, dynamic>();
-      final Map<dynamic, dynamic>? logEvent = eventMap['FFmpegKitLogCallbackEvent'];
-      final Map<dynamic, dynamic>? statisticsEvent = eventMap['FFmpegKitStatisticsCallbackEvent'];
-      final Map<dynamic, dynamic>? completeEvent = eventMap['FFmpegKitCompleteCallbackEvent'];
+      final Map<dynamic, dynamic>? logEvent =
+          eventMap['FFmpegKitLogCallbackEvent'];
+      final Map<dynamic, dynamic>? statisticsEvent =
+          eventMap['FFmpegKitStatisticsCallbackEvent'];
+      final Map<dynamic, dynamic>? completeEvent =
+          eventMap['FFmpegKitCompleteCallbackEvent'];
 
       if (logEvent != null) {
         _processLogCallbackEvent(logEvent);
@@ -88,16 +92,19 @@ class FFmpegKitInitializer {
     final int activeLogLevel = FFmpegKitConfig.getLogLevel();
     var globalCallbackDefined = false;
     var sessionCallbackDefined = false;
-    LogRedirectionStrategy activeLogRedirectionStrategy = FFmpegKitConfig.getLogRedirectionStrategy();
+    LogRedirectionStrategy activeLogRedirectionStrategy =
+        FFmpegKitConfig.getLogRedirectionStrategy();
 
     // avLogStderr logs are always redirected
-    if ((activeLogLevel == Level.avLogQuiet && level != Level.avLogStderr) || level > activeLogLevel) {
+    if ((activeLogLevel == Level.avLogQuiet && level != Level.avLogStderr) ||
+        level > activeLogLevel) {
       // LOG NEITHER PRINTED NOR FORWARDED
       return;
     }
 
     activeLogRedirectionStrategy =
-        FFmpegKitFactory.getLogRedirectionStrategy(sessionId) ?? activeLogRedirectionStrategy;
+        FFmpegKitFactory.getLogRedirectionStrategy(sessionId) ??
+            activeLogRedirectionStrategy;
     final LogCallback? logCallback = FFmpegKitFactory.getLogCallback(sessionId);
 
     if (logCallback != null) {
@@ -175,7 +182,8 @@ class FFmpegKitInitializer {
     final Statistics statistics = FFmpegKitFactory.mapToStatistics(event);
     final int sessionId = event["sessionId"];
 
-    final StatisticsCallback? statisticsCallback = FFmpegKitFactory.getStatisticsCallback(sessionId);
+    final StatisticsCallback? statisticsCallback =
+        FFmpegKitFactory.getStatisticsCallback(sessionId);
     if (statisticsCallback != null) {
       try {
         // NOTIFY SESSION CALLBACK DEFINED
@@ -186,7 +194,8 @@ class FFmpegKitInitializer {
       }
     }
 
-    final globalStatisticsCallbackFunction = FFmpegKitFactory.getGlobalStatisticsCallback();
+    final globalStatisticsCallbackFunction =
+        FFmpegKitFactory.getGlobalStatisticsCallback();
     if (globalStatisticsCallbackFunction != null) {
       try {
         // NOTIFY GLOBAL CALLBACK DEFINED
@@ -205,7 +214,8 @@ class FFmpegKitInitializer {
       if (session != null) {
         if (session.isFFmpeg()) {
           final ffmpegSession = session as FFmpegSession;
-          final FFmpegSessionCompleteCallback? completeCallback = ffmpegSession.getCompleteCallback();
+          final FFmpegSessionCompleteCallback? completeCallback =
+              ffmpegSession.getCompleteCallback();
 
           if (completeCallback != null) {
             try {
@@ -217,7 +227,8 @@ class FFmpegKitInitializer {
             }
           }
 
-          final globalFFmpegSessionCompleteCallback = FFmpegKitFactory.getGlobalFFmpegSessionCompleteCallback();
+          final globalFFmpegSessionCompleteCallback =
+              FFmpegKitFactory.getGlobalFFmpegSessionCompleteCallback();
           if (globalFFmpegSessionCompleteCallback != null) {
             try {
               // NOTIFY GLOBAL CALLBACK DEFINED
@@ -229,7 +240,8 @@ class FFmpegKitInitializer {
           }
         } else if (session.isFFprobe()) {
           final ffprobeSession = session as FFprobeSession;
-          final FFprobeSessionCompleteCallback? completeCallback = ffprobeSession.getCompleteCallback();
+          final FFprobeSessionCompleteCallback? completeCallback =
+              ffprobeSession.getCompleteCallback();
 
           if (completeCallback != null) {
             try {
@@ -241,7 +253,8 @@ class FFmpegKitInitializer {
             }
           }
 
-          final globalFFprobeSessionCompleteCallback = FFmpegKitFactory.getGlobalFFprobeSessionCompleteCallback();
+          final globalFFprobeSessionCompleteCallback =
+              FFmpegKitFactory.getGlobalFFprobeSessionCompleteCallback();
           if (globalFFprobeSessionCompleteCallback != null) {
             try {
               // NOTIFY GLOBAL CALLBACK DEFINED
@@ -266,12 +279,13 @@ class FFmpegKitInitializer {
             }
           }
 
-          final globalMediaInformationSessionCompleteCallback =
-              FFmpegKitFactory.getGlobalMediaInformationSessionCompleteCallback();
+          final globalMediaInformationSessionCompleteCallback = FFmpegKitFactory
+              .getGlobalMediaInformationSessionCompleteCallback();
           if (globalMediaInformationSessionCompleteCallback != null) {
             try {
               // NOTIFY GLOBAL CALLBACK DEFINED
-              globalMediaInformationSessionCompleteCallback(mediaInformationSession);
+              globalMediaInformationSessionCompleteCallback(
+                  mediaInformationSession);
             } on Exception catch (e, stack) {
               print("Exception thrown inside global complete callback. $e");
               print(stack);
